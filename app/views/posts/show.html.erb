@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @post.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @post.user.email %>
+</p>
+<h3>
+  Comments
+</h3>
+<p><%= @id %></p>
+<% @post.comments.each do |comment|%>
+  <p><%= comment.message %>
+  <% if can? :manage, comment %>
+    <%= link_to 'Edit', edit_comment_path(comment) %>
+    <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+</p>
+<% end %>
+<%= link_to 'Add Comment', new_comment_path(post_id: @post.id) %> |
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
